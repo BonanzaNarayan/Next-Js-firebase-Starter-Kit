@@ -12,7 +12,7 @@ export const POST = Webhooks({
       const { type, data } = payload;
 
       // Firebase UID passed from checkout metadata
-      const metadata = data?.metadata;
+      const metadata = (data)?.metadata;
       const userId = metadata?.uid;
       const planInterval = metadata?.planInterval;
       const price = metadata?.price;
