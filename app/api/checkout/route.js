@@ -1,5 +1,4 @@
 import { Checkout } from "@dodopayments/nextjs";
-import { NextRequest } from "next/server";
 
 export const POST = async (req) => {
   try {

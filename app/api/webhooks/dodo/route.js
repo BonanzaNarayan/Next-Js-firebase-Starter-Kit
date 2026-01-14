@@ -1,7 +1,7 @@
 import { Webhooks } from "@dodopayments/nextjs";
 import { FieldValue } from "firebase-admin/firestore";
-import { adminDb } from "@/lib/firebase-admin";
 import { resend } from "@/lib/resend";
+import { getFirebaseAdmin } from "@/lib/firebase-admin";
 
 // --- Webhook Handler ---
 export const POST = Webhooks({
@@ -18,13 +18,7 @@ export const POST = Webhooks({
       const price = metadata?.price;
       const planName = metadata?.name;
 
-      if (!userId) {
-        console.error("❌ Missing firebase_user_id in metadata");
-        console.log("Payload:", payload);
-        return;
-      }
-
-      const userRef = adminDb.collection("users").doc(userId);
+      const userRef = getFirebaseAdmin().collection("users").doc(userId);
       const userSnap = await userRef.get();
       const userEmail = userSnap.data()?.email;
 
