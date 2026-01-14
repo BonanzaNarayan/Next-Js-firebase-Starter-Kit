@@ -8,7 +8,7 @@ A production-ready SaaS boilerplate built with Next.js, Firebase, DodoPayments, 
 - **Backend**: Firebase (Auth, Firestore), Next.js API Routes
 - **Payments**: DodoPayments (Checkout, Webhooks)
 - **Emails**: Resend (Transactional Emails)
-- **Authentication**: Google, GitHub, Email/Password
+- **Authentication**: Google, GitHub
 - **Security**: Protected Routes, Firebase Admin SDK
 
 ## Prerequisites
@@ -31,25 +31,25 @@ A production-ready SaaS boilerplate built with Next.js, Firebase, DodoPayments, 
 
     ```bash
     npm install
+    pnpm install
+    bun install
     ```
 
 3.  **Environment Variables**
-
-    Copy `.env.example` to `.env.local` and fill in your API keys.
-
-    ```bash
-    cp .env.example .env.local
-    ```
 
     - **Firebase**: Get config from Project Settings > General > Your Apps.
     - **Firebase Admin**: Generate a new private key from Project Settings > Service Accounts.
     - **DodoPayments**: Get keys from Developer Settings.
     - **Resend**: Get API key from API Keys.
 
+    Download env.local file at [http://localhost:3000](http://localhost:3000)
+
 4.  **Run the development server**
 
     ```bash
     npm run dev
+    pnpm dev
+    bun dev
     ```
 
     Open [http://localhost:3000](http://localhost:3000) with your browser.
@@ -64,6 +64,4 @@ A production-ready SaaS boilerplate built with Next.js, Firebase, DodoPayments, 
 
 ## Deployment
 
-Deploy easily on Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
+Deploy easily on Vercel

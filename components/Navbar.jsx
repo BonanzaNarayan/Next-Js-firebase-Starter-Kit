@@ -10,12 +10,6 @@ import { Menu, X } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 
 export default function Navbar() {
   const { user, loading } = useAuth();
@@ -89,34 +83,15 @@ export default function Navbar() {
                 >
                   Logout
                 </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="relative h-8 w-8 rounded-full"
-                    >
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback className="bg-primary text-primary-foreground">
-                          {user.email?.[0]?.toUpperCase() || "U"}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem className="flex flex-col items-start p-0">
-                      <div className="px-2 py-1.5 text-sm font-medium">
-                        {user.email}
-                      </div>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleLogout}>
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    {user.email?.[0]?.toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
               </div>
             ) : (
               <Button size="sm" asChild className="hidden sm:inline-flex">
-                <Link href="/login">Login</Link>
+                <Link href="/sign-in">Sign in</Link>
               </Button>
             )}
 
@@ -159,8 +134,8 @@ export default function Navbar() {
               {user ? (
                 <>
                   <div className="px-3 py-2 flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-primary text-primary-foreground">
+                    <Avatar>
+                      <AvatarFallback>
                         {user.email?.[0]?.toUpperCase() || "U"}
                       </AvatarFallback>
                     </Avatar>
@@ -176,7 +151,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <Button asChild className="w-full">
-                  <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/sign-in" onClick={() => setIsMenuOpen(false)}>
                     Login
                   </Link>
                 </Button>

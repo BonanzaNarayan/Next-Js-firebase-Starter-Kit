@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { useAuth } from "@/context/AuthContext";
-import { getUserProfile } from "@/lib/db";
+import { getUserProfile } from "@/lib/userDB";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Calendar, User, Shield, Clock, CheckCircle } from "lucide-react";
@@ -19,7 +18,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!loading && !u) {
-      router.push("/login");
+      router.push("/sign-in");
     }
     getUserProfile(u?.uid).then((user) => {
       setUser(user);
@@ -50,12 +49,6 @@ export default function Dashboard() {
       month: "long",
       day: "numeric",
     });
-  };
-
-  // Get user initials for avatar
-  const getUserInitials = () => {
-    if (!user.email) return "U";
-    return user.email[0].toUpperCase();
   };
 
   return (
@@ -167,100 +160,7 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Quick Info Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Account Summary</CardTitle>
-                <CardDescription>
-                  Your account at a glance
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Provider</p>
-                    <p className="font-medium">
-                      {user.providerData?.[0]?.providerId || "Email/Password"}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Email Status</p>
-                    <div className="flex items-center gap-2">
-                      {user.emailVerified ? (
-                        <>
-                          <CheckCircle className="h-4 w-4 text-green-500" />
-                          <span className="text-green-600 font-medium">Verified</span>
-                        </>
-                      ) : (
-                        <>
-                          <div className="h-2 w-2 rounded-full bg-yellow-500" />
-                          <span className="text-yellow-600 font-medium">Pending Verification</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Account Type</p>
-                    <p className="font-medium">Standard Account</p>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-3">
-                  <h4 className="font-medium text-sm">Security Tips</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                      <span>Your password is encrypted and secure</span>
-                    </li>
-                    {!user.emailVerified && (
-                      <li className="flex items-start gap-2">
-                        <div className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        <span>Verify your email for added security</span>
-                      </li>
-                    )}
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                      <span>Two-factor authentication available</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <Separator />
-
-                <div className="text-center">
-                  <p className="text-xs text-muted-foreground">
-                    Need help with your account?
-                  </p>
-                  <button 
-                    className="text-sm text-primary hover:underline mt-1"
-                    onClick={() => router.push('/support')}
-                  >
-                    Contact Support
-                  </button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
-
-          {/* JSON Debug Info (Optional - remove in production) */}
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle className="text-sm font-mono">User Object (Debug)</CardTitle>
-              <CardDescription>
-                Raw Firebase user data for development purposes
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <pre className="text-xs bg-muted p-4 rounded-lg overflow-auto">
-                {JSON.stringify(u, null, 2)}
-              </pre>
-            </CardContent>
-          </Card>
         </div>
       </main>
     </div>
