@@ -11,7 +11,8 @@ export async function POST(request) {
     }
 
     const token = authHeader.split("Bearer ")[1];
-    const decodedToken = await getFirebaseAdmin().verifyIdToken(token);
+    const { auth } = getFirebaseAdmin();
+    const decodedToken = await auth.verifyIdToken(token);
     const email = decodedToken.email;
 
     await resend.emails.send({
